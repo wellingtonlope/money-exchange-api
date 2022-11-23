@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  wallet-api:
+    container_name: wallet-api
+    build:
+      context: ./wallet
+      dockerfile: Dockerfile
+    ports:
+      - "1300:1300"
+    networks:
+      - money-exchange-network
+networks:
+  money-exchange-network:
+    driver: bridge
