@@ -10,12 +10,14 @@ import (
 
 func TestWalletCreate(t *testing.T) {
 	t.Run("should create a wallet", func(t *testing.T) {
-		repo := NewWallet()
+		repo := &wallet{}
 
 		got, err := repo.Create(domain.Wallet{})
 
 		assert.Nil(t, err)
 		assert.NotEmpty(t, got)
+		assert.Len(t, repo.wallets, 1)
+		assert.Equal(t, got, repo.wallets[0])
 	})
 }
 
