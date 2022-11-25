@@ -51,7 +51,7 @@ func TestWallet_Create(t *testing.T) {
 
 		if assert.NoError(t, ctr.Create(c)) {
 			assert.Equal(t, http.StatusCreated, rec.Code)
-			assert.Equal(t, "{\"id\":\"1\"}\n", rec.Body.String())
+			assert.Equal(t, `{"id":"1"}`, strings.ReplaceAll(rec.Body.String(), "\n", ""))
 		}
 	})
 
@@ -87,7 +87,7 @@ func TestWallet_GetByID(t *testing.T) {
 			Return(usecase.GetByIDOutput{ID: "1"}, nil)
 
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader("{}"))
+		req := httptest.NewRequest(http.MethodGet, "/", strings.NewReader("{}"))
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 		c.SetPath("/wallet/:id")
@@ -110,7 +110,7 @@ func TestWallet_GetByID(t *testing.T) {
 			Return(usecase.GetByIDOutput{}, repository.ErrRepositoryWalletNotFound)
 
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader("{}"))
+		req := httptest.NewRequest(http.MethodGet, "/", strings.NewReader("{}"))
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 		c.SetPath("/wallet/:id")
@@ -133,7 +133,7 @@ func TestWallet_GetByID(t *testing.T) {
 			Return(usecase.GetByIDOutput{}, errors.New("i'm an error"))
 
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader("{}"))
+		req := httptest.NewRequest(http.MethodGet, "/", strings.NewReader("{}"))
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 		c.SetPath("/wallet/:id")
