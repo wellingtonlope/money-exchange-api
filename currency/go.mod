@@ -3,6 +3,7 @@ module github.com/wellingtonlope/money-exchange-api/currency
 go 1.18
 
 require (
+	github.com/joho/godotenv v1.4.0
 	github.com/labstack/echo/v4 v4.9.1
 	github.com/stretchr/testify v1.8.1
 )

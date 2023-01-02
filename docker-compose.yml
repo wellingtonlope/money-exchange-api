@@ -6,8 +6,23 @@ services:
     build:
       context: ./wallet
       dockerfile: Dockerfile
+    environment:
+      - APP_ENV=production
+      - PORT=1300
     ports:
       - "1300:1300"
+    networks:
+      - money-exchange-network
+  currency-api:
+    container_name: currency-api
+    build:
+      context: ./currency
+      dockerfile: Dockerfile
+    environment:
+      - APP_ENV=production
+      - PORT=1301
+    ports:
+      - "1301:1301"
     networks:
       - money-exchange-network
 networks:
